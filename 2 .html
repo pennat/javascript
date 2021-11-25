@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для поста в социальной сети.
+Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
+Пост должен хранить:
+1. Автора поста (имени достаточно).
+2. Текст поста.
+3. Дату и время последнего изменения поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
+менять текст поста.
+
+---
+
+Необходимо создать функцию-конструктор/класс для закрепленного поста в
+социальной сети.
+Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
+Закрепленный пост должен наследоваться от обычного поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
+будет лежать значение false (это свойство будет обозначать, будет ли наш
+закрепленный пост подсвечен).
+У экземпляров объекта закрепленного поста должен быть метод с названием
+`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
+(будет менять свойство `highlighted`).
+
+---
+
+Подсказки:
+1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
+2. Обратите внимание что пост хранит "дату и время последнего изменения
+поста", это значит что если пост кто-то изменит (например вызовет какой-то
+метод, который изменит что-то в посте), дата и время последнего изменения
+поста также должна измениться.
+3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
+что-нибудь пропустить.
+4. Если непонятно условие - задайте вопрос.
+-->
+<script>
+  "use strict";
+
+  // Функция для стиля es5
+
+  function post(author, text) {
+    this.author = author;
+    this.text = text;
+    this.updatetAt = new Date();
+  }
+  post.prototype.edit = function (text) {
+    this.text = text;
+    this.updatedAt = new Date();
+  }
+  const PostES5 = new post('Анна', 'текст');
+  console.log(PostES5);
+  PostES5.edit('новый текст');
+  console.log(PostES5);
+  
+  // Функция для стиля es6
+
+  class post1 {
+    constructor(author, text) {
+      this.author = author;
+      this.text = text;
+      this.updatetAt = new Date();
+    }
+    edit (text) {
+      this.text = text;
+      this.updatedAt = new Date();
+    }
+  }
+  const PostES6 = new post1('Анна', 'текст');
+  console.log(PostES6);
+  PostES6.edit('новый текст');
+  console.log(PostES6);
+
+  // Функция для стиля es5
+
+  function attachedpost(author, text, highlighted) {
+    post.call(this, author, text)
+    this.highlighted = false;
+  }
+  
+  attachedpost.prototype = Object.create(post.prototype);
+  attachedpost.prototype.constructor = attachedpost;
+
+  attachedpost.prototype.makeTextHighlighted = function (highlighted) {
+    this.highlighted = !this.highlighted;
+  }
+
+  const AttachedPostES5 = new attachedpost('Иван', 'текст поста');
+  console.log(AttachedPostES5);
+  AttachedPostES5.edit('новый текст поста');
+  AttachedPostES5.makeTextHighlighted();
+  console.log(AttachedPostES5);
+  
+  // Функция для стиля es6
+ 
+  class attachedpost1 extends post1 {
+    constructor(author, text, highlighted) {
+      super(author, text);
+      this.highlighted = false;
+    }
+    makeTextHighlighted() {
+      this.highlighted = !this.highlighted;
+    }
+  }
+  const AttachedPostES6 = new attachedpost1('Иван', 'текст поста');
+  console.log(AttachedPostES6);
+  AttachedPostES6.edit('новый текст поста');
+  AttachedPostES6.makeTextHighlighted();
+  console.log(AttachedPostES6);
+</script>
+</body>
+</html>
