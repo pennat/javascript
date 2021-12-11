@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+  <style>
+    i {
+      font-size: 50px;
+    }
+    .golden {
+      color: gold;
+    }
+    div {
+      font-size: 0px;
+    }
+    
+  </style>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+
+<div class="stars_container">
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+</div>
+
+<script>
+  "use strict";
+
+  /*
+  1. При наведении на любую из звезд, данной звезде должен ставиться класс
+  golden, также такой класс должен ставиться всем звездам до нее слева.
+  */
+
+  const starEl = document.querySelectorAll('i');
+  starEl.forEach(starEl => {
+    starEl.addEventListener('mouseover', newcolor);
+  });
+  function newcolor(event) {
+    let star = event.target;
+    star.classList.add('golden');
+      while (star = star.previousElementSibling) {
+        star.classList.add('golden');
+      }
+  }
+      
+  /*
+  2. Когда мы уводим курсор мыши от звезды, все поставленные классы из первого
+  задания должны быть удалены.
+   */
+
+  starEl.forEach(starEl => {
+    starEl.addEventListener('mouseout', removecolor);
+  });
+  function removecolor(event) {
+    let star = event.target;
+    star.classList.remove('golden');
+      while (star = star.previousElementSibling) {
+        star.classList.remove('golden');
+      }
+  }
+
+  /*
+  3. Когда мы переводим мышь от одной звезды к другой, у нас могут мигать
+  звезды (временно могут становиться черными). Почему так? Напишите словами.
+  Можем ли мы это исправить? Если да, то предложите решение.
+  */
+
+  /*
+  Звезды временно становятся черными, т.к я добавила обработчик при наведении
+  курсора на элементы 'i', соответственно, они мигают, когда курсор находится 
+  между этими тегами, между ними находятся еще узлы. 
+  Я в стилях добавила блоку 'div' размер шрифта = 0, находящиеся между звездами 
+  белые узлы приняли размер 0, стали незаметными, работает плавно без мигания.
+  Либо можно добавить отрицательный внешний отступ в стилях тегам 'i', так же
+  звезды подвинутся и будет плавный переход.
+  */
+
+</script>
+</body>
+</html>
